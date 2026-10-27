@@ -7,6 +7,12 @@ namespace dxvk {
           DxvkDevice*           device,
     const DxvkFenceCreateInfo&  info)
   : m_vkd(device->vkd()), m_info(info) {
+    // Shared textures can fall back to local storage when Win32 sharing is
+    // unavailable. Their optional keyed mutex must not call a missing exporter.
+    if (info.sharedType != VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_FLAG_BITS_MAX_ENUM
+     && !device->features().khrExternalSemaphoreWin32)
+      throw DxvkError("DxvkFence: Win32 semaphore sharing is not supported");
+
     VkSemaphoreTypeCreateInfo typeInfo = { VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO };
     typeInfo.semaphoreType = VK_SEMAPHORE_TYPE_TIMELINE;
     typeInfo.initialValue = info.initialValue;

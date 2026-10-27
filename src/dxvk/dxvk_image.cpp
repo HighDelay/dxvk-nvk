@@ -334,7 +334,10 @@ namespace dxvk {
     allocationInfo.resourceCookie = cookie();
     allocationInfo.properties = m_properties;
     allocationInfo.mode = mode;
-    allocationInfo.handleType = m_info.sharing.type;
+    // A rejected sharing request creates ordinary local storage. Do not try to
+    // export its allocation through an unavailable Win32 memory-handle entry.
+    if (m_shared)
+      allocationInfo.handleType = m_info.sharing.type;
 
     if (m_info.transient)
       allocationInfo.mode.set(DxvkAllocationMode::NoDedicated);

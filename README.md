@@ -1,5 +1,10 @@
 # DXVK
 
+This fork adds shared-resource fallback repairs for **Wine + native NVK on
+macOS**, based on DXVK 3.1.1. See [the NVK notes](docs/NVK.md) for what changed,
+build/setup details and test results. The changes do not add external sharing or
+claim an FPS improvement.
+
 A Vulkan-based translation layer for Direct3D 8/9/10/11 which allows running 3D applications on Linux using Wine.
 
 For the current status of the project, please refer to the [project wiki](https://github.com/doitsujin/dxvk/wiki).
