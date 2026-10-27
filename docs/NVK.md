@@ -50,11 +50,12 @@ Use the companion runtime/launcher setup, preserving its prefix rollback journal
 Release archives contain the matched **x64** `d3d11.dll` and `dxgi.dll`, checksums,
 the zlib license and build/source records. Download them from this fork's
 [releases](https://github.com/HighDelay/dxvk-nvk/releases), not the ordinary upstream
-release, for this repaired pair. The complete runtime/YAAGL package already includes
-both DLLs. Do not replace just one DLL or edit the runtime's checksum manifest.
+release, for this repaired pair. The driver runtime already includes both DLLs.
+YAAGL uses that installed pair; its launcher archive contains no runtime.
+Do not replace just one DLL or edit the runtime's checksum manifest manually.
 
-YAAGL prefers the driver's `/Library/GPUBundles/nvmtl/wine` provider while retaining
-its compatible bundled Wine. Use `dxvk.enableDescriptorBuffer = False` on this
+YAAGL requires the driver's `/Library/GPUBundles/nvmtl/wine` provider and downloads
+only its compatible Wine build on first setup. Use `dxvk.enableDescriptorBuffer = False` on this
 runtime: descriptor sets restored the invisible ZZZ characters and FPS text.
 
 The ZZZ profile reached menu/login using the existing YAAGL Wine 11.0-1 build,
